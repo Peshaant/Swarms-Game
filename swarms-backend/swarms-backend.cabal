@@ -1,0 +1,73 @@
+cabal-version:      3.0
+name:               swarms-backend
+version:            0.1.0.0
+synopsis:           Swarms wave defense game backend
+license:            MIT
+author:             Peshaant
+build-type:         Simple
+
+common warnings
+    ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates
+                 -Wincomplete-uni-patterns -Wmissing-home-modules
+                 -Wpartial-fields -Wredundant-constraints
+
+library
+    import:           warnings
+    exposed-modules:
+        Game.Types
+        Game.World
+        Game.Entity
+        Game.Tick
+        Game.Pathfinding
+        Game.Wave
+        Game.Combat
+        Server.State
+        Server.Handler
+        Server.Broadcast
+        Server.Protocol
+        Config
+    build-depends:
+        base              ^>=4.18,
+        aeson             ^>=2.2,
+        containers        ^>=0.6,
+        stm               ^>=2.5,
+        websockets        ^>=0.13,
+        warp              ^>=3.3,
+        wai               ^>=3.2,
+        wai-websockets    ^>=3.0,
+        text              ^>=2.0,
+        bytestring        ^>=0.11,
+        random            ^>=1.2,
+        time              ^>=1.12,
+        unordered-containers ^>=0.2,
+        vector            ^>=0.13
+    hs-source-dirs:   src
+    default-language: GHC2021
+    default-extensions:
+        OverloadedStrings
+        DeriveGeneric
+        DeriveAnyClass
+        RecordWildCards
+        LambdaCase
+        TupleSections
+
+executable swarms-server
+    import:           warnings
+    main-is:          Main.hs
+    build-depends:
+        base              ^>=4.18,
+        swarms-backend
+    hs-source-dirs:   app
+    default-language: GHC2021
+
+test-suite swarms-tests
+    import:           warnings
+    type:             exitcode-stdio-1.0
+    main-is:          Spec.hs
+    hs-source-dirs:   test
+    build-depends:
+        base              ^>=4.18,
+        swarms-backend,
+        hspec             ^>=2.11,
+        QuickCheck        ^>=2.14
+    default-language: GHC2021
