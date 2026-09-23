@@ -1,0 +1,19 @@
+# Node / frontend
+node_modules/
+dist/
+*.log
+
+# Haskell / cabal
+dist-newstyle/
+.ghc.environment.*
+cabal.project.local*
+
+# Environment
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
